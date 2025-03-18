@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Pragmatic Demo Store</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="login-wrapper">
+    <div class="login-container">
+        <div class="logo-container">
+            <h1 class="logo">Pragmatic Demo Store</h1>
+        </div>
+        <form id="loginForm" action="javascript:void(0)">
+            <div class="input-group">
+                <input id="username" class="input-field" type="text" placeholder="Email or Phone" required>
+            </div>
+            <div class="input-group">
+                <input id="password" class="input-field" type="password" placeholder="Password" required>
+            </div>
+            <button id="loginButton" class="login-button" type="submit">Sign In</button>
+            <p id="errorMessage" class="error-message">Incorrect username or password!</p>
+        </form>
+        <div class="footer-links">
+            <a href="#">Forgot password?</a>
+            <p>New to Pragmatic Demo Store? <a href="#">Join now</a></p>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById("loginForm").addEventListener("submit", function(e) {
+        e.preventDefault();
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+
+        // Hardcoded username and password
+        const validUsername = "demo@pragmatic.com";
+        const validPassword = "password123";
+
+        if (username === validUsername && password === validPassword) {
+            window.location.href = "products.html"; // Redirect to product page after successful login
+        } else {
+            document.getElementById("errorMessage").style.display = 'block'; // Show error message
+        }
+    });
+</script>
+</body>
+</html>
