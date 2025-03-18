@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pragmatic Timing Alert</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f2ef;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h2 {
+            color: #0073b1;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 16px;
+            color: #333;
+        }
+
+        button {
+            background-color: #0073b1;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #005582;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Pragmatic Timing Alert</h2>
+    <p id="delayMessage">Click the button to start timing.</p>
+    <p id="timer">Time: 0 seconds</p>
+    <button onclick="startAlertTimer()">Start Alert Timer</button>
+</div>
+
+<script>
+    let delay;
+    let interval;
+    let timeout;
+
+    function getRandomDelay() {
+        return Math.floor(Math.random() * (10000 - 5000 + 1)) + 5000;
+    }
+
+    function updateTimerDisplay(seconds) {
+        document.getElementById("timer").textContent = "Time: " + seconds + " seconds";
+    }
+
+    function startAlertTimer() {
+        delay = getRandomDelay();
+        let secondsElapsed = 0;
+        clearInterval(interval);
+        clearTimeout(timeout);
+        updateTimerDisplay(secondsElapsed);
+        document.getElementById("delayMessage").textContent = "Alert will appear after " + (delay / 1000) + " seconds.";
+
+        interval = setInterval(() => {
+            secondsElapsed++;
+            updateTimerDisplay(secondsElapsed);
+        }, 1000);
+
+        timeout = setTimeout(() => {
+            alert("This is a random alert after " + (delay / 1000) + " seconds!");
+            clearInterval(interval);
+        }, delay);
+    }
+</script>
+</body>
+</html>
