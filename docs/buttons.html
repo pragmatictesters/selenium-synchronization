@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buttons - Pragmatic Demo Store</title>
+    <link rel="stylesheet" href="css/syncstyle.css">
+</head>
+<body>
+
+<h1>Buttons</h1>
+
+<h2>Easy To Sync</h2>
+
+<p id="easybuttonmessage">Click all 4 buttons.</p>
+
+<div id="easybuttons">
+    <button id="easy00">start</button>
+    <button id="easy01" style="display:none;">One</button>
+    <button id="easy02" style="display:none;">Two</button>
+    <button id="easy03" style="display:none;">Three</button>
+</div>
+
+<h2>Harder To Sync</h2>
+
+<p id="buttonmessage">Click Buttons In Order</p>
+
+<div id="buttons">
+    <button id="button00">start</button>
+    <button id="button01" disabled="">One</button>
+    <button id="button02" disabled="">Two</button>
+    <button id="button03" disabled="">Three</button>
+</div>
+
+<script>
+    window.onload = function() {
+        // Ensure only one Start button is created and handle click for Easy To Sync section
+        document.getElementById("easy00").onclick = function() {
+            createEasyButton(1); // Create the second button in the sequence
+        };
+
+        document.getElementById("button00").onclick = function() {
+            setTimeout(enableButton, 1000, "button01");
+        };
+
+        // Function to create buttons for Easy section (click each in sequence)
+        function createEasyButton(id){
+            const buttonnames = ["Start", "One", "Two", "Three"];
+            const button = document.getElementById("easy0" + id);
+
+            // Make the next button visible and set the click event for the next button
+            if (id < buttonnames.length - 1) {
+                button.style.display = "inline-block"; // Display the button
+                button.onclick = function () {
+                    // Move to the next button after some delay
+                    setTimeout(createEasyButton, id * 2000, id + 1); // Trigger next button creation
+                };
+            } else {
+                button.style.display = "inline-block";
+                button.onclick = function(){
+                    document.getElementById("easybuttonmessage").innerText = "All Buttons Clicked";
+                };
+            }
+        }
+
+        // Function to enable the next button in the Harder To Sync section
+        function enableButton(anId) {
+            const button = document.getElementById(anId);
+            button.disabled = false;
+            button.style.display = "inline-block"; // Display the button
+        }
+
+        // Functions to disable the buttons after all clicked in Harder To Sync section
+        function disableButton(anId) {
+            const button = document.getElementById(anId);
+            button.disabled = true;
+        }
+
+        // Set the initial button messages
+        setButtonMessage("Click Buttons In Order");
+
+        // Button clicks for Harder to Sync section
+        document.getElementById("button01").onclick = function () {
+            setTimeout(enableButton, 3000, "button02");
+        };
+        document.getElementById("button02").onclick = function () {
+            setTimeout(enableButton, 6000, "button03");
+        };
+        document.getElementById("button03").onclick = function () {
+            setButtonMessage("All Buttons Clicked");
+            setTimeout(disableButton, 1000, "button01");
+            setTimeout(disableButton, 1000, "button02");
+            setTimeout(disableButton, 1000, "button03");
+            setTimeout(setButtonMessage, 2000, "Clickable Buttons");
+            setTimeout(setButtonMessage, 4000, "Click Buttons In Order");
+        }
+
+        // Function to set messages
+        function setButtonMessage(text) {
+            document.getElementById("buttonmessage").innerText = text;
+        }
+    }
+</script>
+
+</body>
+</html>

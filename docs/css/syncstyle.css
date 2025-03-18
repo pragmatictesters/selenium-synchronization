@@ -1,0 +1,62 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f3f2ef;
+    margin: 0;
+    padding: 0;
+    text-align: left; /* Ensures text is aligned to the left */
+    padding-left: 20px; /* Adds some padding to the left */
+}
+
+h1 {
+    font-size: 28px;
+    color: #0073b1;
+    margin-top: 20px;
+}
+
+h2 {
+    color: #0073b1;
+    margin-top: 40px;
+}
+
+#buttons, #easybuttons {
+    display: flex;
+    gap: 10px;
+    flex-direction: row; /* Stacks buttons vertically */
+    align-items: flex-start; /* Aligns buttons to the left */
+    margin-top: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    background-color: #0073b1;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 10px; /* Adds some space between buttons */
+}
+
+button:disabled {
+    background-color: #ddd;
+    cursor: not-allowed;
+}
+
+button:hover:not(:disabled) {
+    background-color: #005d8f;
+}
+
+p {
+    text-align: left;
+    font-size: 18px;
+    color: #333;
+    margin-left: 10px;
+}
+
+footer {
+    background-color: #283e4a;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    margin-top: 40px;
+}
