@@ -35,14 +35,38 @@
             background-color: #004182;
         }
         .alert {
-            padding: 12px;
+            padding: 16px 20px; /* Padding to match button's padding */
             margin: 8px 0;
             border-radius: 4px;
             color: white;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 80px; /* Adjusted height */
+            width: calc(100% - 40px); /* Ensures width matches button container with padding */
+            margin-left: 20px; /* Align left with the first button */
+            box-sizing: border-box; /* Ensures padding does not affect overall width */
         }
         .success { background-color: #4CAF50; }
         .warning { background-color: #FF9800; }
         .error { background-color: #F44336; }
+        .progress-icon {
+            border: 4px solid #f3f3f3; /* Light grey */
+            border-top: 4px solid white; /* White spinner */
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            position: absolute;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .loading {
+            text-align: center;
+        }
     </style>
     <script>
         function showAlert(type) {
@@ -52,11 +76,28 @@
                 case 'warning': message = 'Warning: Check your input.'; break;
                 case 'error': message = 'Error: Something went wrong.'; break;
             }
+
+            // Create progress spinner
+            const progressIcon = document.createElement('div');
+            progressIcon.classList.add('progress-icon');
+
+            // Create alert box
             const alertBox = document.createElement('div');
-            alertBox.className = `alert ${type}`;
-            alertBox.textContent = message;
+            alertBox.className = `alert ${type} loading`;
+            alertBox.appendChild(progressIcon);
+
             document.getElementById('alert-container').appendChild(alertBox);
-            setTimeout(() => alertBox.remove(), 3000);
+
+            // Random delay between 1 and 5 seconds before showing the message
+            const randomDelay = Math.floor(Math.random() * 5000) + 1000;
+
+            setTimeout(() => {
+                progressIcon.remove();  // Remove progress icon after delay
+                alertBox.textContent = message;  // Add the message to the alert box
+
+                // Remove the alert box after 5 seconds
+                setTimeout(() => alertBox.remove(), 5000);
+            }, randomDelay);
         }
     </script>
 </head>
