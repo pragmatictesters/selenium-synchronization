@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pragmatic Test Labs</title>
+    <style>
+        /* Styling for the collapsible div */
+        .collapsible {
+            background-color: #777;
+            color: white;
+            cursor: pointer;
+            padding: 10px;
+            width: 100%;
+            text-align: left;
+            border: none;
+            outline: none;
+            font-size: 15px;
+        }
+
+        .collapsible:hover, .active {
+            background-color: #555;
+        }
+
+        .content {
+            padding: 0 18px;
+            display: none;
+            overflow: hidden;
+            background-color: #f1f1f1;
+        }
+
+        /* Styling for the "About Pragmatic" link */
+        .about-link {
+            color: #007BFF;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .about-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Ensure the content remains visible when hovering over either the button or the content */
+        .collapsible:hover + .content, .content:hover {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Welcome to Pragmatic Test Labs</h1>
+
+<!-- Collapsible div with the link inside -->
+<div>
+    <button class="collapsible">Learn About Pragmatic Test Labs</button>
+    <div class="content">
+        <p>Pragmatic Test Labs is a leading company specializing in quality assurance and testing solutions.<br>
+            We offer expert services in test automation, performance testing, and more.<br>
+            Our goal is to help businesses deliver high-quality software that meets their customers' expectations.<br></p>
+        <p><br><br>We work with diverse industries and understand the needs of each client, tailoring our services to ensure the best results.
+            <br>Our team is passionate about delivering top-notch solutions with speed and accuracy.</p>
+          <p><br><br><br>For more details, visit our <a href="about.html" class="about-link">About Pragmatic</a> page.</p>
+    </div>
+</div>
+
+<script>
+    // JavaScript to ensure collapsible behavior still works in case needed
+    var coll = document.querySelectorAll(".collapsible");
+    coll.forEach(function(button) {
+        button.addEventListener("click", function() {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.display === "block") {
+                content.style.display = "none";
+            } else {
+                content.style.display = "block";
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
