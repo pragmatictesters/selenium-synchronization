@@ -44,7 +44,7 @@
         };
 
         // Function to create buttons for Easy section (click each in sequence)
-        function createEasyButton(id){
+        function createEasyButton(id) {
             const buttonnames = ["Start", "One", "Two", "Three"];
             const button = document.getElementById("easy0" + id);
 
@@ -57,10 +57,24 @@
                 };
             } else {
                 button.style.display = "inline-block";
-                button.onclick = function(){
+                button.onclick = function() {
                     document.getElementById("easybuttonmessage").innerText = "All Buttons Clicked";
+                    // Restore the original message and reset buttons after 5 seconds
+                    setTimeout(function() {
+                        document.getElementById("easybuttonmessage").innerText = "Click all 4 buttons.";
+                        resetEasyButtons();
+                    }, 5000);
                 };
             }
+        }
+
+        // Reset Easy To Sync section to its initial state
+        function resetEasyButtons() {
+            const buttonIds = ["easy00", "easy01", "easy02", "easy03"];
+            buttonIds.forEach((id, index) => {
+                const button = document.getElementById(id);
+                button.style.display = index === 0 ? "inline-block" : "none"; // Only display the Start button
+            });
         }
 
         // Function to enable the next button in the Harder To Sync section
@@ -92,15 +106,34 @@
             setTimeout(disableButton, 1000, "button02");
             setTimeout(disableButton, 1000, "button03");
             setTimeout(setButtonMessage, 2000, "Clickable Buttons");
-            setTimeout(setButtonMessage, 4000, "Click Buttons In Order");
+            setTimeout(function() {
+                setButtonMessage("Click Buttons In Order");
+                resetHarderButtons();
+            }, 5000);
+        };
+
+        // Reset Harder To Sync section to its initial state
+        function resetHarderButtons() {
+            const buttonIds = ["button00", "button01", "button02", "button03"];
+            buttonIds.forEach((id, index) => {
+                const button = document.getElementById(id);
+                button.disabled = index !== 0;
+                button.style.display = index === 0 ? "inline-block" : "none"; // Only display the Start button
+            });
         }
 
         // Function to set messages
         function setButtonMessage(text) {
             document.getElementById("buttonmessage").innerText = text;
         }
+
+        // Initial reset for both sections on load
+        resetEasyButtons();
+        resetHarderButtons();
     }
 </script>
+
+
 
 </body>
 </html>
