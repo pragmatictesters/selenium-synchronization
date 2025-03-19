@@ -46,23 +46,29 @@ public class ExplicitWaitExampleTest {
 
         // Wait for the "Start" button to be clickable and click it
         log("Waiting for the 'Start' button to be clickable...");
-        wait.until(ExpectedConditions.elementToBeClickable(By.id("easy00"))).click();
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("button00"))).click();
 
         // Wait for the "One" button to be clickable and click it
         log("Waiting for the 'One' button to be clickable...");
-        wait.until(ExpectedConditions.elementToBeClickable(By.id("easy01"))).click();
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("button01"))).click();
 
         // Wait for the "Two" button to be clickable and click it
         log("Waiting for the 'Two' button to be clickable...");
-        wait.until(ExpectedConditions.elementToBeClickable(By.id("easy02"))).click();
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("button02"))).click();
 
         // Wait for the "Three" button to be clickable and click it
         log("Waiting for the 'Three' button to be clickable...");
-        wait.until(ExpectedConditions.elementToBeClickable(By.id("easy03"))).click();
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("button03"))).click();
 
         // Verify that the message "All Buttons Clicked" is displayed
         log("Verifying the final message...");
-        Assert.assertEquals(driver.findElement(By.id("easybuttonmessage")).getText(), "All Buttons Clicked");
+        wait.until(ExpectedConditions.textToBe(By.id("buttonmessage"), "All Buttons Clicked"));
+        Assert.assertEquals(driver.findElement(By.id("buttonmessage")).getText(), "All Buttons Clicked");
+
+        // Verify that the message "Click Buttons In Order" is displayed
+        log("Verifying the message reset...");
+        wait.until(ExpectedConditions.textToBe(By.id("buttonmessage"), "Click Buttons In Order"));
+        Assert.assertEquals(driver.findElement(By.id("buttonmessage")).getText(), "Click Buttons In Order");
     }
 
     @Test
@@ -70,13 +76,16 @@ public class ExplicitWaitExampleTest {
         // Using refactored methods to improve code readability
 
         log("Starting refactored wait method test...");
-        waitAndClick(By.id("easy00"), "Start");
-        waitAndClick(By.id("easy01"), "One");
-        waitAndClick(By.id("easy02"), "Two");
-        waitAndClick(By.id("easy03"), "Three");
+        waitAndClick(By.id("button00"), "Start");
+        waitAndClick(By.id("button01"), "One");
+        waitAndClick(By.id("button02"), "Two");
+        waitAndClick(By.id("button03"), "Three");
 
         // Wait and verify the final message
-        waitForTextToBe(By.id("easybuttonmessage"), "All Buttons Clicked");
+        waitForTextToBe(By.id("buttonmessage"), "All Buttons Clicked");
+
+        // Wait and verify the final message
+        waitForTextToBe(By.id("buttonmessage"), "Click Buttons In Order");
     }
 
     private void waitAndClick(By elementBy, String buttonName) {
