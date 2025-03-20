@@ -10,6 +10,8 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.time.Duration;
+
 public class VerifyThrownExceptionsTest {
 
     WebDriver driver;
@@ -48,6 +50,24 @@ public class VerifyThrownExceptionsTest {
         });
     }
 
+
+    @Test
+    public void testNoSuchElementExceptionWithImplicitWait() {
+
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+
+        // Click the "Start" button
+        driver.findElement(By.id("easy00")).click();
+
+        // Assert that a NoSuchElementException is thrown when attempting to find a non-existent element
+        Assert.assertThrows(NoSuchElementException.class, () -> {
+            driver.findElement(By.id("easy011")).click();
+        });
+    }
+
+
+
+
     /**
      * Test to verify the ElementNotInteractableException is thrown when an element is not interactable.
      */
@@ -58,4 +78,19 @@ public class VerifyThrownExceptionsTest {
             driver.findElement(By.id("easy01")).click();
         });
     }
+
+
+    /**
+     * Test to verify the ElementNotInteractableException is thrown when an element is not interactable.
+     */
+    @Test
+    public void testElementNotInteractableExceptionWithImplicitWait() {
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        // Assert that an ElementNotInteractableException is thrown when trying to interact with a hidden element
+        Assert.assertThrows(ElementNotInteractableException.class, () -> {
+            driver.findElement(By.id("easy01")).click();
+        });
+    }
+
+
 }
