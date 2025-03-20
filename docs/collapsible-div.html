@@ -5,7 +5,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pragmatic Test Labs</title>
     <style>
-        /* Styling for the collapsible div */
+        section.synchole {
+            background: #f9efb5;
+            padding: 1em;
+            border: black;
+            border-width: 2px;
+        }
+
+        section.condense {
+            max-height: 100px;  /* Initial visible height */
+            overflow: hidden;
+            position: relative;
+            -webkit-transition: max-height 0.75s ease 0s;
+            -moz-transition: max-height 0.75s ease 0s;
+            -ms-transition: max-height 0.75s ease 0s;
+            -o-transition: max-height 0.75s ease 0s;
+            transition: max-height 0.75s ease 0s;
+        }
+
+        section.condense:hover {
+            max-height: 999px;  /* Expand content on hover */
+        }
+
+        section.condense:after {
+            content: ">";
+            width: 30px;
+            height: 45px;
+            position: absolute;
+            right: 0px;
+            top: 0px;
+        }
+
+        section.condense:hover:after {
+            content: "V";  /* Change symbol to indicate expanded */
+        }
+
+        .about-link {
+            color: #007BFF;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .about-link:hover {
+            text-decoration: underline;
+        }
+
         .collapsible {
             background-color: #777;
             color: white;
@@ -24,25 +68,16 @@
 
         .content {
             padding: 0 18px;
-            display: none;
+            max-height: 100px;  /* Initially only part of the content visible */
             overflow: hidden;
             background-color: #f1f1f1;
+            opacity: 0.9; /* Slightly visible content */
+            transition: max-height 0.75s ease, opacity 0.5s ease;
         }
 
-        /* Styling for the "About Pragmatic" link */
-        .about-link {
-            color: #007BFF;
-            text-decoration: none;
-            font-size: 16px;
-        }
-
-        .about-link:hover {
-            text-decoration: underline;
-        }
-
-        /* Ensure the content remains visible when hovering over either the button or the content */
-        .collapsible:hover + .content, .content:hover {
-            display: block;
+        .collapsible.active + .content {
+            max-height: 600px; /* Expanded content */
+            opacity: 1; /* Full opacity when expanded */
         }
     </style>
 </head>
@@ -51,31 +86,74 @@
 <h1>Welcome to Pragmatic Test Labs</h1>
 
 <!-- Collapsible div with the link inside -->
-<div>
+<div class="condense">
     <button class="collapsible">Learn About Pragmatic Test Labs</button>
     <div class="content">
-        <p>Pragmatic Test Labs is a leading company specializing in quality assurance and testing solutions.<br>
-            We offer expert services in test automation, performance testing, and more.<br>
-            Our goal is to help businesses deliver high-quality software that meets their customers' expectations.<br></p>
-        <p><br><br>We work with diverse industries and understand the needs of each client, tailoring our services to ensure the best results.
-            <br>Our team is passionate about delivering top-notch solutions with speed and accuracy.</p>
-          <p><br><br><br>For more details, visit our <a href="about.html" class="about-link">About Pragmatic</a> page.</p>
+        <p>Pragmatic Test Labs is a leading company specializing in quality assurance and testing solutions. Our team has vast experience in handling various testing challenges across different industries, helping businesses optimize their processes and deliver top-quality products to their customers.</p>
+
+        <p>We offer expert services in test automation, performance testing, manual testing, and more. Whether you're working with a web application, mobile application, or API, we have the tools and expertise to ensure your software functions as expected under real-world conditions.</p>
+
+        <p>Our goal is to help businesses deliver high-quality software that meets their customers' expectations, reduces time to market, and drives business growth. By integrating automation and performance testing early in the development cycle, we can help you achieve efficiency and reliability with minimal overhead.</p>
+
+        <p>We also focus on creating customized solutions based on each client's specific needs. Whether you're a startup, a small business, or a large enterprise, we can design a strategy that aligns with your business goals and testing requirements.</p>
+
+        <p>In addition to traditional testing methodologies, we also emphasize agile practices, continuous integration, and continuous delivery to ensure your software is always in a ready-to-deploy state. Our experienced team works alongside your developers, providing support and valuable feedback at every stage of the software lifecycle.</p>
+
+        <p>We work with diverse industries, from healthcare to finance, gaming, and retail, ensuring we understand the unique needs of each client. Our dedicated approach helps businesses reduce the risk of failures and maintain customer satisfaction.</p>
+
+        <p>Our team is passionate about delivering top-notch solutions with speed and accuracy. We take pride in maintaining a transparent and collaborative relationship with all of our clients, ensuring that we consistently meet expectations.</p>
+
+        <p>For more details, visit our <a href="about.html" class="about-link">About Pragmatic</a> page.</p>
     </div>
 </div>
 
 <script>
-    // JavaScript to ensure collapsible behavior still works in case needed
+    // JavaScript to ensure collapsible behavior still works
     var coll = document.querySelectorAll(".collapsible");
     coll.forEach(function(button) {
         button.addEventListener("click", function() {
             this.classList.toggle("active");
             var content = this.nextElementSibling;
-            if (content.style.display === "block") {
-                content.style.display = "none";
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+                content.style.opacity = 0.9;  // Partially visible on collapse
             } else {
-                content.style.display = "block";
+                content.style.maxHeight = content.scrollHeight + "px";
+                content.style.opacity = 1;  // Fully visible when expanded
             }
         });
+    });
+
+    // Mouse over effect: expand on hover for the entire div
+    var condenseSection = document.querySelector(".condense");
+    condenseSection.addEventListener("mouseover", function() {
+        var content = this.querySelector(".content");
+        if (!this.querySelector(".collapsible").classList.contains("active")) {
+            content.style.maxHeight = content.scrollHeight + "px";
+            content.style.opacity = 1;
+        }
+    });
+
+    // Mouse out effect: collapse when mouse leaves
+    condenseSection.addEventListener("mouseout", function() {
+        var content = this.querySelector(".content");
+        if (!this.querySelector(".collapsible").classList.contains("active")) {
+            content.style.maxHeight = "100px";  // Partial content visible
+            content.style.opacity = 0.9;
+        }
+    });
+
+    // Collapse when focus is outside the collapsible button or content
+    document.addEventListener("click", function(event) {
+        var isClickInside = condenseSection.contains(event.target);
+        if (!isClickInside) {
+            var content = condenseSection.querySelector(".content");
+            if (content.style.maxHeight) {
+                content.style.maxHeight = "100px";  // Collapse content
+                content.style.opacity = 0.9;
+                condenseSection.querySelector(".collapsible").classList.remove("active");
+            }
+        }
     });
 </script>
 
