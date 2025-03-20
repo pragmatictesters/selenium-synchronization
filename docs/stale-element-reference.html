@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Stale Element Reference Exception Simulation</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f3f2ef;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            width: 600px;
+            margin: 20px auto;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        h2 {
+            color: #2867B2;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .feed-item {
+            background-color: #d1ecf1;
+            border: 1px solid #bee5eb;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            color: #0c5460;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #2867B2;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: #1a4e7a;
+        }
+
+        .loading {
+            text-align: center;
+            color: #666;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Simulate Stale Element Reference Exception</h2>
+        <button onclick="refreshContent()">Refresh Content</button>
+        
+        <div id="feedContainer">
+            <div class="feed-item" id="item1">Feed Item 1</div>
+            <div class="feed-item" id="item2">Feed Item 2</div>
+            <div class="feed-item" id="item3">Feed Item 3</div>
+        </div>
+        
+        <div id="loading" class="loading">Loading more content...</div>
+    </div>
+
+    <script>
+        let feedCount = 3;
+        const feedContainer = document.getElementById("feedContainer");
+        const loadingIndicator = document.getElementById("loading");
+
+        function refreshContent() {
+            loadingIndicator.style.display = "block";
+
+            // Simulate a dynamic content update (new items or refresh)
+            setTimeout(() => {
+                feedCount++;
+                const newItem = document.createElement("div");
+                newItem.className = "feed-item";
+                newItem.id = `item${feedCount}`;
+                newItem.textContent = `Feed Item ${feedCount}`;
+                feedContainer.appendChild(newItem);
+                
+                // Hide the loading indicator after the content refresh
+                loadingIndicator.style.display = "none";
+            }, 1000); // Simulate delay
+        }
+
+        // Simulate an interaction with an old element reference
+        setTimeout(() => {
+            const oldElement = document.getElementById("item1");
+            oldElement.style.color = "red";  // This will throw a StaleElementReferenceException in Selenium
+        }, 2000);
+    </script>
+</body>
+</html>
