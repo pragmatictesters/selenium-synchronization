@@ -44,7 +44,7 @@ public class ImplicitWaitExampleTest {
 
     @Test
     public void testButtonsWithDefaultImplicitWait(){
-        driver.findElement(By.id("easy00")).click();
+        driver.findElement(By.id("easy001")).click();
         driver.findElement(By.id("easy01")).click();
         driver.findElement(By.id("easy02")).click(); //<<===Test will fail with an exception here
         driver.findElement(By.id("easy03")).click();
