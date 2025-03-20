@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Modal or Popup Windows</title>
+    <title>Modal or Popup Windows with Delayed Loading</title>
     <style>
         body {
             font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
@@ -68,6 +68,11 @@
             to { opacity: 1; }
         }
 
+        .loading-text {
+            color: #666;
+            margin-bottom: 10px;
+        }
+
         .close-btn {
             background-color: #999;
             color: white;
@@ -80,7 +85,20 @@
     </style>
     <script>
         function openModal() {
-            document.getElementById("myModal").style.display = "flex";
+            const modal = document.getElementById("myModal");
+            const loadingText = document.getElementById("loadingText");
+            const content = document.getElementById("modalContent");
+
+            // Show modal with loading text
+            modal.style.display = "flex";
+            loadingText.style.display = "block";
+            content.style.display = "none";
+
+            // Simulate loading delay
+            setTimeout(() => {
+                loadingText.style.display = "none";
+                content.style.display = "block";
+            }, Math.random() * 2000 + 1000); // Random delay between 1-3 seconds
         }
 
         function closeModal() {
@@ -97,16 +115,19 @@
 </head>
 <body>
     <div class="container">
-        <h2>Modal or Popup Windows</h2>
+        <h2>Modal or Popup Windows with Delayed Loading</h2>
         <button onclick="openModal()">Open Modal</button>
     </div>
 
     <!-- Modal -->
     <div id="myModal" class="modal">
         <div class="modal-content">
-            <h3>Confirmation</h3>
-            <p>Are you sure you want to proceed?</p>
-            <button class="close-btn" onclick="closeModal()">Close</button>
+            <div id="loadingText" class="loading-text">Loading, please wait...</div>
+            <div id="modalContent" style="display: none;">
+                <h3>Confirmation</h3>
+                <p>Are you sure you want to proceed?</p>
+                <button class="close-btn" onclick="closeModal()">Close</button>
+            </div>
         </div>
     </div>
 </body>
