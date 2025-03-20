@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Slow Loadable Component - Pragmatic Test Labs</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f3f2ef;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            width: 600px;
+            margin: 20px auto;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #2867B2;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #333;
+        }
+
+        .loading {
+            color: #888;
+            margin: 20px 0;
+        }
+
+        .logo {
+            width: 100px;
+            margin: 20px auto;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Slow Loadable Component Example</h2>
+    <p class="loading" id="loadingText">Loading... Please wait.</p>
+    <img src="http://pragmatictestlabs.com/wp-content/uploads/2016/09/PTL-Logo-2.png" alt="Logo" class="logo" id="logoImage">
+    <p>This page demonstrates a slow-loading component where the logo appears after a delay.</p>
+</div>
+
+<script>
+    // Simulate a slow loading component (2 seconds delay)
+    setTimeout(() => {
+        document.getElementById("loadingText").style.display = "none";
+        document.getElementById("logoImage").style.display = "block";
+    }, 2000);
+</script>
+
+</body>
+</html>
