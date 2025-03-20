@@ -43,7 +43,6 @@ public class ExplicitWaitExampleTest {
     @Test
     public void testButtonsWithExplicitWait() {
         // Demonstrating explicit waits using WebDriverWait and ExpectedConditions
-
         // Wait for the "Start" button to be clickable and click it
         log("Waiting for the 'Start' button to be clickable...");
         wait.until(ExpectedConditions.elementToBeClickable(By.id("button00"))).click();
