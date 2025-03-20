@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dynamic Dropdown with API Calls</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f3f2ef;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            width: 400px;
+            margin: 50px auto;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        h2 {
+            color: #2867B2;
+            margin-bottom: 20px;
+        }
+
+        label {
+            margin-bottom: 8px;
+            display: block;
+            font-size: 16px;
+            color: #333;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+        }
+
+        .loading {
+            color: #666;
+            font-size: 14px;
+        }
+    </style>
+    <script>
+        async function loadOptions() {
+            const dropdown = document.getElementById("productDropdown");
+            const loadingText = document.getElementById("loading");
+            loadingText.style.display = "block";
+
+            // Simulate API call with random delay
+            await new Promise(resolve => setTimeout(resolve, Math.random() * 2000 + 1000));
+
+            const products = ["Laptop", "Smartphone", "Headphones", "Monitor", "Keyboard", "Mouse"];
+            loadingText.style.display = "none";
+
+            products.forEach(product => {
+                const option = document.createElement("option");
+                option.value = product;
+                option.textContent = product;
+                dropdown.appendChild(option);
+            });
+        }
+
+        window.onload = loadOptions;
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>Product Selection</h2>
+        <label for="productDropdown">Select a Product:</label>
+        <select id="productDropdown">
+            <option value="">Loading options...</option>
+        </select>
+        <div id="loading" class="loading">Fetching products, please wait...</div>
+    </div>
+</body>
+</html>
