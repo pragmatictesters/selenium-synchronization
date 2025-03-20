@@ -5,79 +5,77 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pragmatic Test Labs</title>
     <style>
-        section.synchole {
-            background: #f9efb5;
-            padding: 1em;
-            border: black;
-            border-width: 2px;
+        /* LinkedIn-like style */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f5f7;
+            margin: 0;
+            padding: 0;
         }
 
-        section.condense {
-            max-height: 100px;  /* Initial visible height */
+        h1 {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333;
+            padding: 20px;
+            text-align: center;
+            background-color: #ffffff;
+            margin: 0;
+            border-bottom: 2px solid #e4e6eb;
+        }
+
+        /* Styling for the collapsible div */
+        .collapsible {
+            background-color: #ffffff;
+            color: #0060a1;
+            cursor: pointer;
+            padding: 15px;
+            width: 100%;
+            text-align: left;
+            border: 1px solid #e4e6eb;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .collapsible:hover, .active {
+            background-color: #0060a1;
+            color: white;
+        }
+
+        .content {
+            padding: 0 18px;
+            display: block; /* Initially show the content */
+            max-height: 0;  /* Hide the content */
             overflow: hidden;
-            position: relative;
-            -webkit-transition: max-height 0.75s ease 0s;
-            -moz-transition: max-height 0.75s ease 0s;
-            -ms-transition: max-height 0.75s ease 0s;
-            -o-transition: max-height 0.75s ease 0s;
-            transition: max-height 0.75s ease 0s;
+            background-color: #f1f1f1;
+            opacity: 0; /* Initially hide the content */
+            transition: max-height 1s ease 0.5s, opacity 0.5s ease 0.5s; /* Add a delay of 0.5s for both max-height and opacity */
+            border-left: 4px solid #0060a1;
+            border-radius: 0 0 5px 5px;
         }
 
-        section.condense:hover {
-            max-height: 999px;  /* Expand content on hover */
+        .collapsible.active + .content {
+            max-height: 600px; /* Adjusted for larger content */
+            opacity: 1; /* Show content */
         }
 
-        section.condense:after {
-            content: ">";
-            width: 30px;
-            height: 45px;
-            position: absolute;
-            right: 0px;
-            top: 0px;
-        }
-
-        section.condense:hover:after {
-            content: "V";  /* Change symbol to indicate expanded */
-        }
-
+        /* Styling for the "About Pragmatic" link */
         .about-link {
-            color: #007BFF;
+            color: #0060a1;
             text-decoration: none;
             font-size: 16px;
+            font-weight: 500;
         }
 
         .about-link:hover {
             text-decoration: underline;
         }
 
-        .collapsible {
-            background-color: #777;
-            color: white;
-            cursor: pointer;
-            padding: 10px;
-            width: 100%;
-            text-align: left;
-            border: none;
-            outline: none;
-            font-size: 15px;
-        }
-
-        .collapsible:hover, .active {
-            background-color: #555;
-        }
-
-        .content {
-            padding: 0 18px;
-            max-height: 100px;  /* Initially only part of the content visible */
-            overflow: hidden;
-            background-color: #f1f1f1;
-            opacity: 0.9; /* Slightly visible content */
-            transition: max-height 0.75s ease, opacity 0.5s ease;
-        }
-
-        .collapsible.active + .content {
-            max-height: 600px; /* Expanded content */
-            opacity: 1; /* Full opacity when expanded */
+        /* Ensure the content remains visible when hovering over either the button or the content */
+        .collapsible:hover + .content, .content:hover {
+            display: block;
         }
     </style>
 </head>
@@ -86,7 +84,7 @@
 <h1>Welcome to Pragmatic Test Labs</h1>
 
 <!-- Collapsible div with the link inside -->
-<div class="condense">
+<div>
     <button class="collapsible">Learn About Pragmatic Test Labs</button>
     <div class="content">
         <p>Pragmatic Test Labs is a leading company specializing in quality assurance and testing solutions. Our team has vast experience in handling various testing challenges across different industries, helping businesses optimize their processes and deliver top-quality products to their customers.</p>
@@ -99,7 +97,7 @@
 
         <p>In addition to traditional testing methodologies, we also emphasize agile practices, continuous integration, and continuous delivery to ensure your software is always in a ready-to-deploy state. Our experienced team works alongside your developers, providing support and valuable feedback at every stage of the software lifecycle.</p>
 
-        <p>We work with diverse industries, from healthcare to finance, gaming, and retail, ensuring we understand the unique needs of each client. Our dedicated approach helps businesses reduce the risk of failures and maintain customer satisfaction.</p>
+        <p><br><br>We work with diverse industries, from healthcare to finance, gaming, and retail, ensuring we understand the unique needs of each client. Our dedicated approach helps businesses reduce the risk of failures and maintain customer satisfaction.</p>
 
         <p>Our team is passionate about delivering top-notch solutions with speed and accuracy. We take pride in maintaining a transparent and collaborative relationship with all of our clients, ensuring that we consistently meet expectations.</p>
 
@@ -116,42 +114,43 @@
             var content = this.nextElementSibling;
             if (content.style.maxHeight) {
                 content.style.maxHeight = null;
-                content.style.opacity = 0.9;  // Partially visible on collapse
+                content.style.opacity = 0;
             } else {
                 content.style.maxHeight = content.scrollHeight + "px";
-                content.style.opacity = 1;  // Fully visible when expanded
+                content.style.opacity = 1;
+            }
+        });
+
+        // Expand content on mouse over
+        button.addEventListener("mouseover", function() {
+            var content = this.nextElementSibling;
+            if (!this.classList.contains("active")) {
+                this.classList.add("active");
+                content.style.maxHeight = content.scrollHeight + "px";
+                content.style.opacity = 1;
+            }
+        });
+
+        // Collapse content on mouse out
+        button.addEventListener("mouseout", function() {
+            var content = this.nextElementSibling;
+            if (!this.classList.contains("active")) {
+                this.classList.remove("active");
+                content.style.maxHeight = null;
+                content.style.opacity = 0;
             }
         });
     });
 
-    // Mouse over effect: expand on hover for the entire div
-    var condenseSection = document.querySelector(".condense");
-    condenseSection.addEventListener("mouseover", function() {
-        var content = this.querySelector(".content");
-        if (!this.querySelector(".collapsible").classList.contains("active")) {
-            content.style.maxHeight = content.scrollHeight + "px";
-            content.style.opacity = 1;
-        }
-    });
-
-    // Mouse out effect: collapse when mouse leaves
-    condenseSection.addEventListener("mouseout", function() {
-        var content = this.querySelector(".content");
-        if (!this.querySelector(".collapsible").classList.contains("active")) {
-            content.style.maxHeight = "100px";  // Partial content visible
-            content.style.opacity = 0.9;
-        }
-    });
-
     // Collapse when focus is outside the collapsible button or content
     document.addEventListener("click", function(event) {
-        var isClickInside = condenseSection.contains(event.target);
+        var isClickInside = document.querySelector(".collapsible").contains(event.target);
         if (!isClickInside) {
-            var content = condenseSection.querySelector(".content");
+            var content = document.querySelector(".content");
             if (content.style.maxHeight) {
-                content.style.maxHeight = "100px";  // Collapse content
-                content.style.opacity = 0.9;
-                condenseSection.querySelector(".collapsible").classList.remove("active");
+                content.style.maxHeight = null;
+                content.style.opacity = 0;
+                document.querySelector(".collapsible").classList.remove("active");
             }
         }
     });
