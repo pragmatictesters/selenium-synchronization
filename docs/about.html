@@ -3,52 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Pragmatic Test Labs</title>
+    <title>Pragmatic Test Labs - Synchronization Demos</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             padding: 20px;
             line-height: 1.6;
+            background-color: #f3f2ef;
         }
 
         h1 {
-            color: #333;
+            color: #2867B2;
         }
 
         .content {
             max-width: 800px;
             margin: auto;
-            padding: 10px;
-            background-color: #f9f9f9;
+            padding: 20px;
+            background-color: #fff;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
-        .back-link {
+        .page-link {
+            display: block;
+            margin: 8px 0;
             color: #007BFF;
             text-decoration: none;
-            font-size: 16px;
-            display: inline-block;
-            margin-top: 20px;
+            font-size: 18px;
         }
 
-        .back-link:hover {
+        .page-link:hover {
             text-decoration: underline;
+        }
+
+        p {
+            margin: 10px 0;
         }
     </style>
 </head>
 <body>
 
-<h1>About Pragmatic Test Labs</h1>
+<h1>Pragmatic Test Labs - Synchronization Demos</h1>
 
 <div class="content">
-    <p>Pragmatic Test Labs is committed to providing the best in software testing and quality assurance services. Our team of experts ensures that all products meet the highest standards of performance, functionality, and user experience.</p>
-    <p>We offer a wide range of testing services including automated testing, performance testing, security testing, and more. With our customized solutions, we help businesses improve their product quality and achieve their goals efficiently.</p>
+    <p>Explore various synchronization scenarios and techniques in Selenium WebDriver through the following interactive pages:</p>
+    
+    <h3>Synchronization Demo Pages:</h3>
+    
+    <a href="dynamic-content-with-disappearing-elements.html" class="page-link">Dynamic Content with Disappearing Elements</a>
+    <p>Demonstrates handling elements that disappear or change dynamically, requiring synchronization for reliable interactions.</p>
 
-    <p>Our services are designed to provide reliable and actionable insights, enabling clients to deliver superior products to their customers.</p>
+    <a href="stale-element-reference.html" class="page-link">Stale Element Reference Exception Simulation</a>
+    <p>Simulates situations where elements are reloaded or refreshed, causing stale element references and demonstrating recovery strategies.</p>
 
-    <!-- Back to the main page link -->
-    <a href="index.html" class="back-link">Back to Home</a>
+    <a href="ajax-search.html" class="page-link">AJAX-Based Content Updates</a>
+    <p>Handles dynamic content updates via AJAX calls, requiring waits for content to be fully loaded and visible before interaction.</p>
+
+    <a href="countdown-timer.html" class="page-link">Countdown Timer / Progress Indicator</a>
+    <p>Displays a countdown or progress bar that requires synchronization to handle state changes and ensure stable interactions.</p>
+
+    <a href="modal-popup.html" class="page-link">Modal or Popup Windows</a>
+    <p>Demonstrates handling of modal dialogs and popups, which can block other interactions until dismissed.</p>
+
+    <a href="dynamic-table.html" class="page-link">Dynamic Table with Varying Rows</a>
+    <p>Simulates tables with dynamically changing row counts, showcasing how to handle unpredictable data sizes.</p>
+
+    <a href="infinite-scrolling.html" class="page-link">Infinite Scrolling Feeds</a>
+    <p>Demonstrates infinite scrolling content similar to social media feeds, requiring scrolling and content visibility checks.</p>
+
+    <a href="tabbed-content.html" class="page-link">Tabbed Content Switching</a>
+    <p>Handles dynamic content loading within tabbed interfaces, where content is fetched or displayed when tabs are switched.</p>
+
+    <h3>About Us</h3>
+    <a href="about.html" class="page-link">About Pragmatic Test Labs</a>
 </div>
 
 </body>

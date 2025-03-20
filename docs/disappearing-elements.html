@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dynamic Content with Disappearing Elements</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f3f2ef;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            width: 600px;
+            margin: 20px auto;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        h2 {
+            color: #2867B2;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .message {
+            background-color: #ffecb3;
+            padding: 15px;
+            border-radius: 8px;
+            color: #856404;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #2867B2;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: #1a4e7a;
+        }
+
+        .disappearing-content {
+            padding: 10px;
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .disappearing-content.hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Dynamic Content with Disappearing Elements</h2>
+        <div id="message" class="message">Click the button to hide the content below</div>
+        
+        <button onclick="toggleContent()">Hide Content</button>
+        
+        <div id="dynamicContent" class="disappearing-content">
+            This content will disappear when you click the button.
+        </div>
+    </div>
+
+    <script>
+        function toggleContent() {
+            const content = document.getElementById("dynamicContent");
+            const message = document.getElementById("message");
+
+            // Toggle visibility of the content
+            content.classList.toggle("hidden");
+
+            // Change message text based on visibility
+            if (content.classList.contains("hidden")) {
+                message.textContent = "Click the button to show the content again";
+            } else {
+                message.textContent = "Click the button to hide the content again";
+            }
+        }
+    </script>
+</body>
+</html>

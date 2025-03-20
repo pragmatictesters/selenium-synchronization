@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AJAX-Based Search Simulation</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f3f2ef;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            width: 600px;
+            margin: 20px auto;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        h2 {
+            color: #2867B2;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .results {
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .result-item {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .result-item:last-child {
+            border-bottom: none;
+        }
+
+        .loading {
+            text-align: center;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>AJAX Search Simulation</h2>
+        
+        <input type="text" id="searchBox" placeholder="Search for a product..." oninput="searchProducts()" />
+        
+        <div id="loading" class="loading" style="display:none;">Loading results...</div>
+        
+        <div id="resultsContainer" class="results"></div>
+    </div>
+
+    <script>
+        const resultsContainer = document.getElementById("resultsContainer");
+        const loadingIndicator = document.getElementById("loading");
+
+        function searchProducts() {
+            const searchText = document.getElementById("searchBox").value;
+
+            if (searchText.length < 3) {
+                resultsContainer.innerHTML = ""; // Clear results if search text is less than 3 chars
+                return;
+            }
+
+            loadingIndicator.style.display = "block"; // Show loading indicator
+
+            // Simulate an AJAX request with a delay
+            setTimeout(() => {
+                const mockResults = generateMockResults(searchText);
+                displayResults(mockResults);
+                loadingIndicator.style.display = "none"; // Hide loading indicator
+            }, Math.random() * 1000 + 500); // Simulate AJAX delay (random between 0.5 and 1.5 seconds)
+        }
+
+        function generateMockResults(query) {
+            const results = [];
+            for (let i = 1; i <= 5; i++) {
+                results.push(`<div class="result-item">Result ${i} for "${query}"</div>`);
+            }
+            return results;
+        }
+
+        function displayResults(results) {
+            resultsContainer.innerHTML = results.join('');
+        }
+    </script>
+</body>
+</html>

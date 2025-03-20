@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tabbed Content Switching with Dynamic Loading</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f3f2ef;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            width: 500px;
+            margin: 50px auto;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        h2 {
+            color: #2867B2;
+            margin-bottom: 20px;
+        }
+
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid #ddd;
+            margin-bottom: 20px;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+            color: #333;
+            background-color: #f3f2ef;
+            border-radius: 4px 4px 0 0;
+            margin-right: 2px;
+            transition: background-color 0.2s;
+        }
+
+        .tab:hover {
+            background-color: #e0e0e0;
+        }
+
+        .tab.active {
+            background-color: #fff;
+            color: #2867B2;
+            font-weight: bold;
+            border-bottom: 2px solid #2867B2;
+        }
+
+        .content {
+            display: none;
+            padding: 10px;
+            color: #555;
+        }
+
+        .content.active {
+            display: block;
+        }
+
+        .loading {
+            color: #666;
+            margin: 10px 0;
+            font-size: 14px;
+        }
+    </style>
+    <script>
+        function simulateLoading(contentId, message) {
+            const content = document.querySelector(`[data-content="${contentId}"]`);
+            content.innerHTML = '<div class="loading">Loading...</div>';
+
+            setTimeout(() => {
+                content.innerHTML = message;
+            }, Math.random() * 2000 + 1000);
+        }
+
+        function switchTab(tabName) {
+            const tabs = document.querySelectorAll(".tab");
+            const contents = document.querySelectorAll(".content");
+
+            tabs.forEach(tab => tab.classList.remove("active"));
+            contents.forEach(content => content.classList.remove("active"));
+
+            document.getElementById(tabName).classList.add("active");
+            const content = document.querySelector(`[data-content="${tabName}"]`);
+            content.classList.add("active");
+
+            // Simulate slow content loading
+            if (!content.dataset.loaded) {
+                simulateLoading(tabName, content.dataset.message);
+                content.dataset.loaded = "true";
+            }
+        }
+
+        window.onload = () => switchTab("tab1");
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>Tabbed Content Switching with Dynamic Loading</h2>
+        <div class="tabs">
+            <div class="tab active" id="tab1" onclick="switchTab('tab1')">Profile</div>
+            <div class="tab" id="tab2" onclick="switchTab('tab2')">Settings</div>
+            <div class="tab" id="tab3" onclick="switchTab('tab3')">Messages</div>
+        </div>
+        <div class="content active" data-content="tab1" data-message="Welcome to your profile! Here you can view and edit your personal details."></div>
+        <div class="content" data-content="tab2" data-message="Adjust your settings here, including preferences and account configurations."></div>
+        <div class="content" data-content="tab3" data-message="View your messages and notifications in this tab."></div>
+    </div>
+</body>
+</html>

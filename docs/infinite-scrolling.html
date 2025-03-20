@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Infinite Scrolling - LinkedIn-like Feeds</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f3f2ef;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            width: 600px;
+            margin: 20px auto;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        h2 {
+            color: #2867B2;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .feed {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+
+        .feed:hover {
+            transform: scale(1.01);
+        }
+
+        .feed-header {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .feed-content {
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .loading {
+            text-align: center;
+            color: #666;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>LinkedIn-like Infinite Scrolling Feeds</h2>
+        <div id="feedContainer"></div>
+        <div id="loading" class="loading">Loading more feeds...</div>
+    </div>
+
+    <script>
+        let feedCount = 0;
+        const feedContainer = document.getElementById("feedContainer");
+        const loadingIndicator = document.getElementById("loading");
+
+        function createFeedItem(id) {
+            const feed = document.createElement("div");
+            feed.className = "feed";
+            feed.innerHTML = `
+                <div class="feed-header">User ${id}</div>
+                <div class="feed-content">This is feed post number ${id}. Check out what's happening right now!</div>
+            `;
+            return feed;
+        }
+
+        function loadFeeds(count) {
+            for (let i = 0; i < count; i++) {
+                feedCount++;
+                const feedItem = createFeedItem(feedCount);
+                feedContainer.appendChild(feedItem);
+            }
+        }
+
+        function showLoading() {
+            loadingIndicator.style.display = "block";
+        }
+
+        function hideLoading() {
+            loadingIndicator.style.display = "none";
+        }
+
+        function loadMoreFeeds() {
+            showLoading();
+            setTimeout(() => {
+                loadFeeds(5); // Load 5 new feeds
+                hideLoading();
+            }, Math.random() * 1000 + 500); // Random delay between 0.5 and 1.5 seconds
+        }
+
+        // Initial load
+        loadFeeds(10);
+
+        // Infinite scroll event
+        window.addEventListener("scroll", () => {
+            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 50) {
+                loadMoreFeeds();
+            }
+        });
+    </script>
+</body>
+</html>

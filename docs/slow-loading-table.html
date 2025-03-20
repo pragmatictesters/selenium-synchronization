@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dynamic Table with Unpredictable Rows</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        table {
+            width: 50%;
+            border-collapse: collapse;
+            margin: 20px auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .loading {
+            text-align: center;
+            margin: 20px;
+            font-size: 18px;
+            color: #555;
+        }
+    </style>
+    <script>
+        function generateRandomData() {
+            const products = ["Laptop", "Phone", "Headphones", "Monitor", "Keyboard", "Mouse", "Charger", "Tablet", "Speaker", "Camera"];
+            const prices = [1200, 800, 150, 300, 50, 30, 20, 450, 100, 600];
+            const index = Math.floor(Math.random() * products.length);
+            return { name: products[index], price: prices[index] };
+        }
+
+        function addRow(table) {
+            const row = table.insertRow();
+            const cell1 = row.insertCell(0);
+            const cell2 = row.insertCell(1);
+            const data = generateRandomData();
+            cell1.textContent = data.name;
+            cell2.textContent = "LKR " + data.price;
+        }
+
+        function loadTableRows() {
+            const table = document.getElementById("productTable");
+            const loadingText = document.getElementById("loading");
+            let rowCount = Math.floor(Math.random() * 10) + 5; // Random row count between 5 and 15
+            let loaded = 0;
+
+            function loadRow() {
+                if (loaded < rowCount) {
+                    addRow(table);
+                    loaded++;
+                    setTimeout(loadRow, Math.random() * 1000 + 500); // Delay between 0.5 and 1.5 seconds
+                } else {
+                    loadingText.style.display = "none";
+                }
+            }
+
+            loadRow();
+        }
+
+        window.onload = loadTableRows;
+    </script>
+</head>
+<body>
+    <h2 style="text-align: center;">Unpredictable and Slowly Loading Product Table</h2>
+    <div id="loading" class="loading">Loading products, please wait...</div>
+    <table id="productTable">
+        <tr>
+            <th>Product Name</th>
+            <th>Price (LKR)</th>
+        </tr>
+    </table>
+</body>
+</html>
