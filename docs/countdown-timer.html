@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Countdown Timer or Progress Indicator</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f3f2ef;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            width: 400px;
+            margin: 50px auto;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #2867B2;
+            margin-bottom: 20px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            background-color: #ddd;
+            border-radius: 25px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .progress {
+            height: 30px;
+            width: 0;
+            background-color: #2867B2;
+            border-radius: 25px;
+            transition: width 0.1s;
+            color: white;
+            line-height: 30px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .countdown {
+            font-size: 24px;
+            margin: 20px 0;
+            color: #555;
+        }
+    </style>
+    <script>
+        function startCountdown(duration) {
+            let timeLeft = duration;
+            const countdownElem = document.getElementById("countdown");
+            const progressElem = document.getElementById("progress");
+
+            const interval = setInterval(() => {
+                countdownElem.textContent = timeLeft + " seconds remaining";
+                const progress = ((duration - timeLeft) / duration) * 100;
+                progressElem.style.width = progress + "%";
+                progressElem.textContent = Math.round(progress) + "%";
+
+                if (timeLeft <= 0) {
+                    clearInterval(interval);
+                    countdownElem.textContent = "Time's up!";
+                    progressElem.style.width = "100%";
+                    progressElem.textContent = "100%";
+                }
+                timeLeft--;
+            }, 1000);
+        }
+
+        window.onload = () => startCountdown(10); // 10-second countdown
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>Countdown Timer with Progress Indicator</h2>
+        <div class="countdown" id="countdown">Starting...</div>
+        <div class="progress-bar">
+            <div class="progress" id="progress">0%</div>
+        </div>
+    </div>
+</body>
+</html>
