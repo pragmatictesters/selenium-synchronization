@@ -49,7 +49,8 @@ public class FluentWaitExampleTest {
 
     @Test
     public void testButtonsWithFluentWait() {
-        // Demonstrating explicit waits using WebDriverWait and ExpectedConditions
+        // Demonstrating Fluent waits using  Wait<WebDriver> and ExpectedConditions
+
 
         // Wait for the "Start" button to be clickable and click it
         log("Waiting for the 'Start' button to be clickable...");
@@ -94,6 +95,26 @@ public class FluentWaitExampleTest {
         // Wait and verify the final message
         waitForTextToBe(By.id("buttonmessage"), "Click Buttons In Order");
     }
+
+
+    @Test
+    public void testButtonsWithRefactoredFluentWaitWithAdditionalConfigurations() {
+
+
+
+        log("Starting refactored wait method test...");
+        waitAndClick(By.id("button00"), "Start");
+        waitAndClick(By.id("button01"), "One");
+        waitAndClick(By.id("button02"), "Two");
+        waitAndClick(By.id("button03"), "Three");
+
+        // Wait and verify the final message
+        waitForTextToBe(By.id("buttonmessage"), "All Buttons Clicked");
+
+        // Wait and verify the final message
+        waitForTextToBe(By.id("buttonmessage"), "Click Buttons In Order");
+    }
+
 
     private void waitAndClick(By elementBy, String buttonName) {
         log("Waiting for the '" + buttonName + "' button to be clickable...");
