@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Load Timeout Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f2ef;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h2 {
+            color: #333;
+        }
+        p {
+            color: #555;
+        }
+        .loader {
+            margin: 20px auto;
+            border: 6px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 6px solid #0073b1;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Page Load Timeout Demo</h2>
+    <p>Demonstrating the use of Selenium PageLoad timeouts.</p>
+    <div class="loader"></div>
+    <p id="message">Loading, please wait...</p>
+</div>
+<script>
+    function getLoadingTimeFromUrl() {
+        const params = new URLSearchParams(window.location.search);
+        return parseInt(params.get("loadTime")) || 5; // Default to 5 seconds
+    }
+
+    const loadingTime = getLoadingTimeFromUrl();
+
+    setTimeout(() => {
+        const message = document.getElementById("message");
+        message.textContent = `Page loaded after ${loadingTime} seconds.`;
+        const loader = document.querySelector(".loader");
+        loader.style.display = "none";
+    }, loadingTime * 1000);
+</script>
+</body>
+</html>
